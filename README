@@ -56,7 +56,7 @@ npm run dev
 | GET    | `/api/admin/welcome` | Admin-only welcome route                |
 | ------ | -------------------  | ---------------------------------       |
 | POST   | `/api/image/upload`  | Admin-only — upload image to Cloudinary |
-| GET    | `/api/image/view`    | Public or user view of images           |
+| GET    | `/api/image/get`     | Authenticated users can fetch images    |
 
 MIDDLEWARE
 

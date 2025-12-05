@@ -29,7 +29,11 @@ export const uploadImage = async (req, res) => {
     await newlyUploadedImage.save();
 
     //clear the images in local storage after uploading to cloud
-    await fs.unlink(req.file.path);
+    try {
+      await fs.unlink(req.file.path);
+    } catch (cleanupError) {
+      console.warn("failed to clean local file", cleanupError);
+    }
 
     return res.status(201).json({
       success: true,
@@ -52,18 +56,16 @@ export const fetchImages = async (req, res) => {
   try {
     const images = await Image.find({});
 
-    if (images) {
-      res.status(200).json({
-        success: true,
-        message: "Images fetched succesfully",
-        data: images,
-      });
-    }
+    res.status(200).json({
+      success: true,
+      message: "Images fetched succesfully",
+      data: images,
+    });
   } catch (error) {
     console.error("Could not fetch images:", error);
     res.status(500).json({
       success: false,
-      message: "Error occured while fetching images",
+      message: "Error occurred while fetching images",
     });
   }
 };
