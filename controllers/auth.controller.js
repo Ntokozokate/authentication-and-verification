@@ -5,11 +5,11 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-//1 Extract user information from our request body
+//extract user information from our request body
 //check if the user already exists $or method to check if email or username
-//-> to register, hash the password befre storing it into the data base
+//to register, hash the password befre storing it into the data base
 //create new user to database and save
-// return user details side for the password
+//return user details side for the password
 
 export const registerUser = async (req, res) => {
   const { username, email, password, role } = req.body;
@@ -50,6 +50,7 @@ export const registerUser = async (req, res) => {
     });
   }
 };
+
 //user will enter username and password and we will find user by username
 //check if the user exists
 //with bcrypt take user password from req.body and check it against hashed password in the DB

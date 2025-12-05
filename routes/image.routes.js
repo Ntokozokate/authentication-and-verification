@@ -2,7 +2,7 @@ import express from "express";
 import { isAdmin } from "../middleware/admin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 import { upload } from "../middleware/upload.middleware.js";
-import { uploadImage } from "../controllers/image.controller.js";
+import { fetchImages, uploadImage } from "../controllers/image.controller.js";
 
 const router = express.Router();
 
@@ -16,5 +16,6 @@ router.post(
   upload.single("image"),
   uploadImage
 );
+router.get("/get", authMiddleware, fetchImages);
 
 export default router;
