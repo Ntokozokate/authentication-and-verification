@@ -1,0 +1,86 @@
+# Authentication and Authorization Microservice
+
+A production-ready Node.js + Express.js authentication and authorization microservice that provides user registration,
+login, role-based access control, protected routes, and image uploading using Cloudinary and Multer.
+This project demonstrates secure user authentication, hashed passwords, token-based authorization,
+admin-level permissions, and uploading/serving images for authenticated users.
+
+# Tech Stack
+
+Node.js
+Express.js
+MongoDB + Mongoose
+JWT (JSON Web Tokens)
+bcryptjs
+Cloudinary (image storage)
+Multer (image upload middleware)
+dotenv
+
+# Core Features
+
+✅ Authentication
+User Registration (with hashed passwords)
+User Login (with password comparison)
+JWT Access Tokens
+Refresh Tokens (if included in your logic)
+
+✅ Authorization
+Role-based access control (User / Admin)
+Protected routes for authenticated users
+Admin-only routes for images and admin dashboard
+
+✅ Image Uploading
+-Admins can upload images
+-Uploaded images stored on Cloudinary
+-Regular users can view but cannot upload
+
+✅ Other Features
+Middleware-based route protection
+Error handling for unauthorized access
+Organized folder structure following MVC
+
+START THE SERVER
+in production
+npm start
+
+in develeopment
+npm run dev
+
+| Method | Endpoint             | Description                             |
+| ------ | -------------------- | --------------------------------------- |
+| POST   | `/api/auth/register` | Register new user                       |
+| POST   | `/api/auth/login`    | Login user and return token             |
+| ------ | -------------------  | -------------------------------         |
+| GET    | `/api/home/welcome`  | Only logged-in users can access         |
+| ------ | -------------------- | ------------------------                |
+| GET    | `/api/admin/welcome` | Admin-only welcome route                |
+| ------ | -------------------  | ---------------------------------       |
+| POST   | `/api/image/upload`  | Admin-only — upload image to Cloudinary |
+| GET    | `/api/image/get`     | Authenticated users can fetch images    |
+
+MIDDLEWARE
+
+auth.middleware.js
+-Verifies JWT
+-Ensures user is logged in
+
+admin.middleware.js
+-Checks req.user.role === "admin"
+-Used for admin routes and image uploads
+
+upload.middleware.js
+-Handles Multer file uploads
+
+DATABASE MODLES
+User Model
+-username
+-email
+-password (hashed)
+-role (default: user, admin allowed)
+
+Image Model
+-image URL
+-Cloudinary public ID
+
+Ntokozo Kate Moyo
+[project](https://github.com/Ntokozokate/authentication-and-verification)

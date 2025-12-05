@@ -27,6 +27,7 @@ export const authMiddleware = (req, res, next) => {
 
     console.log(decodedToken);
     req.userInfo = decodedToken;
+
     next();
   } catch (error) {
     console.log("Error Authenticating user", error);

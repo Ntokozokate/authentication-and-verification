@@ -11,15 +11,15 @@ import express from "express";
 const app = express();
 const port = process.env.PORT || 3006;
 
-//Main logic endpoints
-
 //middleware
 app.use(express.json());
 
+//Main logic endpoints
 app.use("/api/auth", authRoutes);
 app.use("/api/home", homeRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/image", imageRoutes);
+//app.use("/api/fetch", getImageRoutes)
 
 connectMongoBD();
 
