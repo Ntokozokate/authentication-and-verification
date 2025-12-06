@@ -2,7 +2,11 @@ import express from "express";
 import { isAdmin } from "../middleware/admin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 import { upload } from "../middleware/upload.middleware.js";
-import { fetchImages, uploadImage } from "../controllers/image.controller.js";
+import {
+  deleteImage,
+  fetchImages,
+  uploadImage,
+} from "../controllers/image.controller.js";
 
 const router = express.Router();
 
@@ -17,5 +21,9 @@ router.post(
   uploadImage
 );
 router.get("/get", authMiddleware, fetchImages);
+
+//delete an image route by ID
+//69330131c5c8759672d40a76
+router.delete("/:id", authMiddleware, isAdmin, deleteImage);
 
 export default router;
