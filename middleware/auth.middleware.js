@@ -8,13 +8,6 @@ export const authMiddleware = (req, res, next) => {
   console.log(authHeader);
   const token = authHeader && authHeader.split(" ")[1];
 
-  //   if (!authHeader.startsWith("Bearer ")) {
-  //     return res.status(401).json({
-  //       success: false,
-  //       message: "Invalid authorization format. Expected: Bearer <token>",
-  //     });
-  //   }
-
   if (!token) {
     return res
       .status(401)
@@ -26,6 +19,7 @@ export const authMiddleware = (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
     console.log(decodedToken);
+    //THE GOLD
     req.userInfo = decodedToken;
 
     next();
