@@ -63,6 +63,15 @@ export const fetchImages = async (req, res) => {
 
     //sorting
     const sortBy = req.query.sortBy || "createdAt";
+    const allowedSortFields = ["createdAt", "uploadedBy", "url"];
+    if (!allowedSortFields.includes(sortBy)) {
+      return res.status(400).json({
+        success: false,
+        message: `Invalid sortBy field. Allowed fields: ${allowedSortFields.join(
+          ", "
+        )}`,
+      });
+    }
     const sortOrder = req.query.sortOrder === "asc" ? 1 : -1;
 
     //count total documents
@@ -120,6 +129,11 @@ export const deleteImage = async (req, res) => {
     }
     // delete the image from cloudinary
     await cloudinary.uploader.destroy(image.publicId);
+    if (result.result !== "ok") {
+      throw new Error(
+        `Failed to delete image from Cloudinary: ${result.result}`
+      );
+    }
 
     //now delete image from mongoDB
     await Image.findByIdAndDelete(imageId);
